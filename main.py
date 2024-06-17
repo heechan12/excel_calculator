@@ -2,12 +2,7 @@ import streamlit as st
 import pandas as pd
 
 
-def main():
-    st.title("필드테스트 엑셀 계산기")
-
-    st.subheader("입력")
-    values = st.text_area("연속된 값을 입력하세요 (각 값은 줄 바꿈으로 구분):")
-
+def calculate(values):
     if values:
         try:
             # 입력값을 개행 문자로 구분하여 리스트로 변환하고 빈 줄을 제거
@@ -39,6 +34,16 @@ def main():
 
         except ValueError:
             st.error("잘못된 입력입니다. 각 줄에 숫자를 입력해주세요.")
+
+def main():
+    st.title("필드테스트 엑셀 계산기")
+
+    st.subheader("입력")
+    values = st.text_area("연속된 값을 입력하세요 (각 값은 줄 바꿈으로 구분):")
+
+    if st.button("계산하기"):
+        calculate(values)
+
 
 
 if __name__ == "__main__":
