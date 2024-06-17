@@ -1,29 +1,31 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 
 
 def calculate(values):
     if values:
         try:
-            # 입력값을 개행 문자로 구분하여 리스트로 변환하고 빈 줄을 제거
-            numbers = list(map(float, filter(None, values.split('\n'))))
+            # 입력값을 탭과 개행 문자로 구분하여 리스트로 변환하고 빈 줄을 제거
+            data = [list(map(float, filter(None, line.split()))) for line in values.split('\n') if line]
 
-            if numbers:  # 입력된 숫자가 있을 때만 계산
-                # 평균 계산
-                average = round(sum(numbers) / len(numbers), 2)
+            if data:  # 입력된 숫자가 있을 때만 계산
+                # 데이터프레임으로 변환
+                df = pd.DataFrame(data, columns=["Channel 1", "Channel 2"])
 
-                # 최대값 계산
-                maximum = round(max(numbers), 2)
-
-                # 최소값 계산
-                minimum = round(min(numbers), 2)
-
-                # 결과를 데이터프레임으로 저장
-                results = {
+                # 각 열의 최대값, 평균, 최소값 계산
+                metrics = {
                     'Metric': ['최대값', '평균', '최소값'],
-                    'Value': [f"{maximum:.2f}", f"{average:.2f}", f"{minimum:.2f}"]
                 }
-                results_df = pd.DataFrame(results)
+                for col in df.columns:
+                    col_values = df[col]
+                    metrics[col] = [
+                        f"{col_values.max():.2f}",
+                        f"{col_values.mean():.2f}",
+                        f"{col_values.min():.2f}",
+                    ]
+
+                results_df = pd.DataFrame(metrics)
 
                 # 결과 출력
                 st.divider()
@@ -43,7 +45,6 @@ def main():
 
     if st.button("계산하기"):
         calculate(values)
-
 
 
 if __name__ == "__main__":
