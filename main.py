@@ -15,7 +15,7 @@ def calculate(values):
 
                 # 각 열의 최대값, 평균, 최소값 계산
                 metrics = {
-                    'Metric': ['최대값', '평균', '최소값'],
+                    '항목': ['최대값', '평균', '최소값'],
                 }
                 for col in df.columns:
                     col_values = df[col]
