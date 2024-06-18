@@ -38,7 +38,7 @@ def calculate(values):
             st.error("잘못된 입력입니다. 각 줄에 숫자를 입력해주세요.")
 
 def main():
-    st.title("mVoIP 필드테스트 엑셀 MOS 계산기")
+    st.title("mVoIP 필드테스트 MOS 계산기")
 
     st.subheader("입력")
     values = st.text_area("연속된 값을 입력하세요 (채널 간 값은 공백, 채널 내 값은 줄 바꿈으로 구분):")
