@@ -15,14 +15,15 @@ def calculate(values):
 
                 # 각 열의 최대값, 평균, 최소값 계산
                 metrics = {
-                    '항목': ['최대값', '평균', '최소값'],
+                    # '항목': ['최대값', '평균', '최소값'], // 24.07.03 순서 변경
+                    '항목': ['평균', '최소값', '최대값'],
                 }
                 for col in df.columns:
                     col_values = df[col]
                     metrics[col] = [
-                        f"{col_values.max():.2f}",
                         f"{col_values.mean():.2f}",
                         f"{col_values.min():.2f}",
+                        f"{col_values.max():.2f}",
                     ]
 
                 results_df = pd.DataFrame(metrics)
